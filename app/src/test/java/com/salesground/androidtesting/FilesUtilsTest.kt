@@ -30,8 +30,9 @@ class FilesUtilsTest {
     @Test
     fun renameFile() {
         val initialVideo = filesUtil.createFile("Video3.mp4")
-        filesUtil.renameFile(initialVideo, "Video4.mp4")
-        Assert.assertEquals(initialVideo.name, "Video4.mp4")
+        val newVideo = filesUtil.renameFile(initialVideo, "Video4.mp4")
+        Assert.assertEquals(newVideo.name, "Video4.mp4")
+        Assert.assertEquals(false, initialVideo.exists())
     }
 
     @Test
