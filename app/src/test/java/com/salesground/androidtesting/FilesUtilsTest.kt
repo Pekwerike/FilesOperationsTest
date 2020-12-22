@@ -37,5 +37,8 @@ class FilesUtilsTest {
 
     @Test
     fun getMainFolder() {
+        val mainFolder = filesUtil.getMainFolder();
+        val imageFile = filesUtil.createFile("image1.jpg")
+        Assert.assertEquals(true, mainFolder.isDirectory)
     }
 }

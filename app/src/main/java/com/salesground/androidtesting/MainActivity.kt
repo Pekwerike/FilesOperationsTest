@@ -11,12 +11,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun createFile(context: Context, fileName: String?) : File?{
-        fileName?.let {
-            val folder = File(context.getExternalFilesDir(null), fileName)
-            if(!folder.exists()) folder.mkdirs()
-            return File(folder, fileName)
-        }
-        return null
-    }
 }
