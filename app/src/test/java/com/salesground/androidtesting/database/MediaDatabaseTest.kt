@@ -91,6 +91,7 @@ class MediaDatabaseTest {
         mediaDao.insertMediaItem(image1)
 
         assertEquals(mediaDao.getAllMediaItem().size, 3 )
+        assert(mediaDao.getAllMediaItem().isNotEmpty())
     }
 
     @Test

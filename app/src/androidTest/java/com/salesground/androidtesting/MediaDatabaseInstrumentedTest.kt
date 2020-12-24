@@ -13,11 +13,8 @@ import com.salesground.androidtesting.database.MediaEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.junit.*
 import org.junit.Assert.*
-import org.junit.Before
-import org.junit.BeforeClass
-import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
@@ -33,6 +30,11 @@ class MediaDatabaseInstrumentedTest {
         mediaDB = Room.inMemoryDatabaseBuilder(applicationContext, MediaDatabase::class.java)
                 .build()
         mediaDao = mediaDB.mediaDao()
+    }
+
+    @After
+    fun closeMediaDatabase(){
+        mediaDB.close()
     }
 
     @Test
@@ -92,6 +94,7 @@ class MediaDatabaseInstrumentedTest {
             mediaDao.insertMediaItem(image1)
 
             assertEquals(mediaDao.getAllMediaItem().size, 3)
+            assert(mediaDao.getAllMediaItem().isNotEmpty())
         }
     }
 
