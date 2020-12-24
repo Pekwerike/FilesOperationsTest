@@ -10,7 +10,8 @@ abstract class MediaDatabase : RoomDatabase() {
     abstract fun mediaDao(): MediaDao
 
     companion object {
-        private val MEDIA_DATABASE_INSTANCE: MediaDatabase? = null
+        @Volatile
+        private var MEDIA_DATABASE_INSTANCE: MediaDatabase? = null
 
         fun getMediaDatabase(applicationContext: Context): MediaDatabase {
             var instance = MEDIA_DATABASE_INSTANCE

@@ -38,6 +38,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
 
     // Optional -- Robolectric environment
     // AndroidX Test - JVM testing
@@ -51,7 +52,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
     testImplementation "androidx.room:room-testing:$roomVersion"
 
 
