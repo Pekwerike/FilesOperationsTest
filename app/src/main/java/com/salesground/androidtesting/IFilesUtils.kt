@@ -11,4 +11,3 @@ interface IFilesUtils {
     fun deleteMainDirectory(): List<File>
 }
 
-g
