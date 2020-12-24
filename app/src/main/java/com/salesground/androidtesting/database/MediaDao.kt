@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Dao
 interface MediaDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMediaItem(mediaEntity: MediaEntity)
 
     @Insert

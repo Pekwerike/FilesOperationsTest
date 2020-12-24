@@ -107,4 +107,11 @@ class MediaDatabaseTest {
         assertNotEquals(mediaDao.getMediaItemById(1).mediaType, "mp4")
     }
 
+    @Test
+    fun insertSameEntityTwiceTest(){
+        val video = MediaEntity(mediaId = 1, mediaName = "video", mediaType = "mp4")
+        mediaDao.insertMediaItem(video)
+        mediaDao.insertMediaItem(video)
+        assertEquals(mediaDao.getAllMediaItem().size, 1)
+    }
 }
