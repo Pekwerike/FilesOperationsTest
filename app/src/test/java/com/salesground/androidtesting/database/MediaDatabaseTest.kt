@@ -35,27 +35,65 @@ class MediaDatabaseTest {
         mediaDao = mediaDB.mediaDao()
     }
 
-    @ExperimentalCoroutinesApi
     @Test
-    @Throws(IOException::class)
     fun insertMedia() {
-        val mediaItem = MediaEntity(
-            mediaName = "video1.mp4",
-            mediaType = "mp4")
-        var savedMediaItems: List<MediaEntity>
-        mediaDao.insertMediaItem(mediaItem)
-        savedMediaItems = mediaDao.getAllMediaItem()
-        print(savedMediaItems[0].mediaId.toString() + ", name: ${savedMediaItems[0].mediaName}" )
-        assertEquals(savedMediaItems[0].mediaName, "video1.mp4")
+        mediaDao.insertMediaItem(
+            MediaEntity(
+                mediaName = "video1.mp4",
+                mediaType = "mp4"
+            )
+        )
+        mediaDao.insertMediaItem(
+            MediaEntity(
+                mediaName = "video2.mp4",
+                mediaType = "mp4"
+            )
+        )
+        mediaDao.insertMediaItem(MediaEntity(
+            mediaName = "video3.mp4",
+            mediaType = "mp4"))
 
-
+        assertEquals(mediaDao.getMediaItemById(1).mediaName, "video1.mp4")
+        assertEquals(mediaDao.getMediaItemById(2).mediaName, "video2.mp4")
+        assertNotEquals(mediaDao.getMediaItemById(3).mediaName, "video2.mp4")
     }
-/*
-    @Test
-    fun getAllMediaPrimaryKeys(){
-        CoroutineScope(Dispatchers.IO).launch {
-           val mediaPrimaryKeys : List<Long> = mediaDao.getAllMediaPrimaryKeys()
 
-        }
-    }*/
+    @Test
+    fun deleteMediaFromDBTest(){
+        mediaDao.insertMediaItem(
+            MediaEntity(
+                mediaName = "video2.mp4",
+                mediaType = "mp4"
+            )
+        )
+        val video2 = mediaDao.getMediaItemById(1)
+        mediaDao.deleteMediaItem(video2)
+        val requestForDeletedVideo = mediaDao.getMediaItemById(1)
+        assertEquals(requestForDeletedVideo, null)
+    }
+
+    @Test
+    fun getAllMediaItemTest(){
+        val video1 = MediaEntity(mediaName = "video1", mediaType = "mp4")
+        val video2 = MediaEntity(mediaName = "video2", mediaType = "mp4")
+        val image1 = MediaEntity(mediaName = "image1", mediaType = "jpeg")
+
+        mediaDao.insertMediaItem(video1)
+        mediaDao.insertMediaItem(video2)
+        mediaDao.insertMediaItem(image1)
+
+        assertEquals(mediaDao.getAllMediaItem().size, 3 )
+    }
+
+    @Test
+    fun insertMultipleMediaItemTest(){
+        val video1 = MediaEntity(mediaName = "video1", mediaType = "mp4")
+        val video2 = MediaEntity(mediaName = "video2", mediaType = "mp4")
+        val image1 = MediaEntity(mediaName = "image1", mediaType = "jpeg")
+
+        mediaDao.insertMultipleMediaItems(listOf(video1, video2, image1))
+        assertEquals(mediaDao.getAllMediaItem().size, 3)
+    }
+
+
 }

@@ -7,6 +7,9 @@ interface MediaDao {
     @Insert
     fun insertMediaItem(mediaEntity: MediaEntity)
 
+    @Insert
+    fun insertMultipleMediaItems(mediaEntities : List<MediaEntity>)
+
     @Delete
     fun deleteMediaItem(mediaEntity: MediaEntity)
 
@@ -18,6 +21,5 @@ interface MediaDao {
 
     @Query("SELECT * FROM media_table")
     fun getAllMediaItem() : List<MediaEntity>
-
 
 }
