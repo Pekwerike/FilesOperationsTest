@@ -30,7 +30,7 @@ class MediaDatabaseTest {
     private val testScope = TestCoroutineScope(testDispatcher)
 
     @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+    val instantExecutorRule = InstantT
 
 
     @Before
