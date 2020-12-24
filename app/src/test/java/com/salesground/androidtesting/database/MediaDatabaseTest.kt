@@ -13,16 +13,24 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import java.io.IOException
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(maxSdk = 28, minSdk = 28)
 class MediaDatabaseTest {
     private lateinit var mediaDB: MediaDatabase
     private lateinit var mediaDao: MediaDao
+
+    private val testDispatcher = TestCoroutineDispatcher()
+    private val testScope = TestCoroutineScope(testDispatcher)
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
 
     @Before
@@ -36,7 +44,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun insertMedia() {
+    fun insertMedia() = testScope.runBlockingTest {
         mediaDao.insertMediaItem(
             MediaEntity(
                 mediaName = "video1.mp4",
@@ -59,7 +67,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun deleteMediaFromDBTest(){
+    fun deleteMediaFromDBTest() = runBlockingTest {
         mediaDao.insertMediaItem(
             MediaEntity(
                 mediaName = "video2.mp4",
@@ -73,7 +81,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun getAllMediaItemTest(){
+    fun getAllMediaItemTest() = runBlockingTest {
         val video1 = MediaEntity(mediaName = "video1", mediaType = "mp4")
         val video2 = MediaEntity(mediaName = "video2", mediaType = "mp4")
         val image1 = MediaEntity(mediaName = "image1", mediaType = "jpeg")
@@ -96,7 +104,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun updateMediaItemTest(){
+    fun updateMediaItemTest() = runBlockingTest{
         val video1 = MediaEntity(mediaType = "mp4", mediaName = "video1.mp4")
         mediaDao.insertMediaItem(video1)
         val videoQueried = mediaDao.getMediaItemById(1)
@@ -108,7 +116,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun insertSameEntityTwiceTest(){
+    fun insertSameEntityTwiceTest() = runBlockingTest {
         val video = MediaEntity(mediaId = 1, mediaName = "video", mediaType = "mp4")
         mediaDao.insertMediaItem(video)
         mediaDao.insertMediaItem(video)
