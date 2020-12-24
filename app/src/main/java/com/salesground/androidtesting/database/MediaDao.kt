@@ -8,7 +8,7 @@ interface MediaDao {
     suspend fun insertMediaItem(mediaEntity: MediaEntity)
 
     @Insert
-    fun insertMultipleMediaItems(mediaEntities : List<MediaEntity>)
+    suspend fun insertMultipleMediaItems(mediaEntities : List<MediaEntity>)
 
     @Delete
     fun deleteMediaItem(mediaEntity: MediaEntity)

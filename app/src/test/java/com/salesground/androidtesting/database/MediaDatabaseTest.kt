@@ -27,9 +27,7 @@ class MediaDatabaseTest {
     private lateinit var mediaDB: MediaDatabase
     private lateinit var mediaDao: MediaDao
 
-    private val testDispatcher = TestCoroutineDispatcher()
-    private val testScope = TestCoroutineScope(testDispatcher)
-
+    // important run for using test coroutines runBlockingTest{ } lambda
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -45,7 +43,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun insertMedia() = testScope.runBlockingTest {
+    fun insertMedia() = runBlockingTest {
         mediaDao.insertMediaItem(
             MediaEntity(
                 mediaName = "video1.mp4",
@@ -65,6 +63,7 @@ class MediaDatabaseTest {
         assertEquals(mediaDao.getMediaItemById(1).mediaName, "video1.mp4")
         assertEquals(mediaDao.getMediaItemById(2).mediaName, "video2.mp4")
         assertNotEquals(mediaDao.getMediaItemById(3).mediaName, "video2.mp4")
+
     }
 
     @Test
@@ -95,7 +94,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun insertMultipleMediaItemAndGetAllMediaItemTest(){
+    fun insertMultipleMediaItemAndGetAllMediaItemTest() = runBlockingTest {
         val video1 = MediaEntity(mediaName = "video1", mediaType = "mp4")
         val video2 = MediaEntity(mediaName = "video2", mediaType = "mp4")
         val image1 = MediaEntity(mediaName = "image1", mediaType = "jpeg")
