@@ -86,7 +86,7 @@ class MediaDatabaseTest {
     }
 
     @Test
-    fun insertMultipleMediaItemTest(){
+    fun insertMultipleMediaItemAndGetAllMediaItemTest(){
         val video1 = MediaEntity(mediaName = "video1", mediaType = "mp4")
         val video2 = MediaEntity(mediaName = "video2", mediaType = "mp4")
         val image1 = MediaEntity(mediaName = "image1", mediaType = "jpeg")
@@ -95,5 +95,16 @@ class MediaDatabaseTest {
         assertEquals(mediaDao.getAllMediaItem().size, 3)
     }
 
+    @Test
+    fun updateMediaItemTest(){
+        val video1 = MediaEntity(mediaType = "mp4", mediaName = "video1.mp4")
+        mediaDao.insertMediaItem(video1)
+        val videoQueried = mediaDao.getMediaItemById(1)
+        val updatedVideo = MediaEntity(mediaId = videoQueried.mediaId,
+        mediaName = "image30", mediaType = "jpg")
+        mediaDao.updateMediaItem(updatedVideo)
+        assertEquals(mediaDao.getMediaItemById(1).mediaName, "image30")
+        assertNotEquals(mediaDao.getMediaItemById(1).mediaType, "mp4")
+    }
 
 }
