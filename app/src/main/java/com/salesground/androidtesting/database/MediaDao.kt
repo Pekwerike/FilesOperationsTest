@@ -15,6 +15,6 @@ interface MediaDao {
     @Update
     fun updateMediaItem(mediaEntity: MediaEntity)
 
-    @Query("SELECT * FROM media_table WHERE mediaId = :primaryKey")
+    @Query("SELECT * FROM media_table WHERE media_primary_key = :primaryKey")
     fun getMediaItemById(primaryKey: Long)
 }
