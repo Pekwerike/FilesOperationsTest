@@ -8,7 +8,7 @@ class FilesUtils(private val context: Context) {
     fun createFile(fileName: String): File {
         val folder = getMainFolder()
         val newFile = File(folder, fileName)
-        newFile.createNewFile()
+        if(!newFile.exists()) newFile.createNewFile()
         return newFile
     }
 
@@ -32,7 +32,7 @@ class FilesUtils(private val context: Context) {
     fun deleteMainDirectory(): List<File> {
         val mainFolder = getMainFolder()
         var filesInMainFolder: List<File> = listOf()
-        mainFolder.listFiles()?.sortedByDescending {
+        mainFolder.listFiles()?.sortedBy {
             it.lastModified()
         }?.toList()?.let {
             filesInMainFolder = it
