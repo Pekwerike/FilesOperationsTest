@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(MediaEntity::class), version = 1, exportSchema = true)
 abstract class MediaDatabase : RoomDatabase() {
-    abstract val MediaDao: MediaDao
+    abstract val mediaDao: MediaDao
 
     companion object {
         private val MEDIA_DATABASE_INSTANCE: MediaDatabase? = null

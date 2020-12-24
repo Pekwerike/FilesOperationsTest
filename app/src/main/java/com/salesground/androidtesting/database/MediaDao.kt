@@ -17,4 +17,9 @@ interface MediaDao {
 
     @Query("SELECT * FROM media_table WHERE media_primary_key = :primaryKey")
     fun getMediaItemById(primaryKey: Long)
+
+    @Query("SELECT * FROM media_table")
+    fun getAllMediaItem() : List<MediaEntity>
+
+
 }
