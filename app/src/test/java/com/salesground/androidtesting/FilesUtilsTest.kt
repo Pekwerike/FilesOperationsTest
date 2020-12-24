@@ -41,4 +41,13 @@ class FilesUtilsTest {
         val imageFile = filesUtil.createFile("image1.jpg")
         Assert.assertEquals(true, mainFolder.isDirectory)
     }
+
+    @Test
+    fun deleteMainFolder(){
+        filesUtil.createFile("video1.mp4")
+        filesUtil.createFile("video2.mp4")
+        filesUtil.createFile("video3.mp4")
+        val filesInMainDirectory = filesUtil.deleteMainDirectory()
+        Assert.assertEquals("video1.mp4", filesInMainDirectory[0].name)
+    }
 }

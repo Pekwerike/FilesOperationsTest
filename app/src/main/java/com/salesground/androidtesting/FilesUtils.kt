@@ -26,4 +26,13 @@ class FilesUtils(private val context: Context) {
         if (!folder.exists()) folder.mkdirs()
         return folder
     }
+
+    fun deleteMainDirectory() : List<File>?{
+        val mainFolder = getMainFolder()
+        val filesInMainFolder = mainFolder.listFiles()?.sortedByDescending {
+            it.lastModified()
+        }?.toList()
+        mainFolder.deleteRecursively()
+        return filesInMainFolder
+    }
 }
