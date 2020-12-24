@@ -7,6 +7,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 @Config(maxSdk = 28, minSdk = 28)
@@ -48,6 +49,9 @@ class FilesUtilsTest {
         filesUtil.createFile("video2.mp4")
         filesUtil.createFile("video3.mp4")
         val filesInMainDirectory = filesUtil.deleteMainDirectory()
+        val mainDirectory = filesUtil.getMainFolder()
         Assert.assertEquals("video1.mp4", filesInMainDirectory[0].name)
+        Assert.assertEquals("video2.mp4", filesInMainDirectory[1].name)
+        Assert.assertArrayEquals(arrayOf<File>(),  mainDirectory.listFiles())
     }
 }

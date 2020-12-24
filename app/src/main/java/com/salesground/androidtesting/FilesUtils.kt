@@ -7,7 +7,9 @@ class FilesUtils(private val context: Context) {
 
     fun createFile(fileName: String): File {
         val folder = getMainFolder()
-        return File(folder, fileName)
+        val newFile = File(folder, fileName)
+        newFile.createNewFile()
+        return newFile
     }
 
     fun deleteFile(file: File) {
@@ -27,11 +29,14 @@ class FilesUtils(private val context: Context) {
         return folder
     }
 
-    fun deleteMainDirectory() : List<File>?{
+    fun deleteMainDirectory(): List<File> {
         val mainFolder = getMainFolder()
-        val filesInMainFolder = mainFolder.listFiles()?.sortedByDescending {
+        var filesInMainFolder: List<File> = listOf()
+        mainFolder.listFiles()?.sortedByDescending {
             it.lastModified()
-        }?.toList()
+        }?.toList()?.let {
+            filesInMainFolder = it
+        }
         mainFolder.deleteRecursively()
         return filesInMainFolder
     }
