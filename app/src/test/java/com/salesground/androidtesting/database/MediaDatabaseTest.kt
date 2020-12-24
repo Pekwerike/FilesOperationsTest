@@ -2,6 +2,7 @@ package com.salesground.androidtesting.database
 
 import android.content.Context
 import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -30,7 +31,7 @@ class MediaDatabaseTest {
     private val testScope = TestCoroutineScope(testDispatcher)
 
     @get:Rule
-    val instantExecutorRule = InstantT
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
 
     @Before
