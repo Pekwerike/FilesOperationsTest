@@ -14,23 +14,25 @@ import org.robolectric.annotation.Config
 @Config(maxSdk = 28, minSdk = 28)
 class MediaDatabaseTest {
     private lateinit var mediaDB: MediaDatabase
-    private lateinit var mediaDao: MediaDao
+    private lateinit var mediaDao : MediaDao
 
     @Before
     fun getMediaDatabase() {
         val applicationContext = ApplicationProvider.getApplicationContext<Context>()
-        mediaDB = Room.inMemoryDatabaseBuilder(applicationContext, MediaDatabase::class.java).build()
+        mediaDB =
+            Room.inMemoryDatabaseBuilder(applicationContext, MediaDatabase::class.java).build()
         mediaDao = mediaDB.mediaDao
     }
 
     @Test
-    fun insertMedia(){
+    fun insertMedia() {
         val mediaItem = MediaEntity(
             mediaName = "video1.mp4",
             mediaType = "mp4",
             mediaId = System.currentTimeMillis()
         )
         mediaDao.insertMediaItem(mediaItem)
-        mediaDao.getAllMediaItem()
+        val savedMediaItems = mediaDao.getAllMediaItem()
+        assertEquals(savedMediaItems[0].mediaName, "video1.mp4")
     }
 }
